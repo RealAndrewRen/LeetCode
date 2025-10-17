@@ -1,11 +1,17 @@
+import java.util.Arrays;
+
 class Solution {
     public int hIndex(int[] citations) {
         Arrays.sort(citations);
-        for (int i = 0; i < citations.length; i++){
-            if (citations.length - i <= citations[i]){
-                return citations.length - i;
+        int n = citations.length;
+        int h = 0;
+        for (int i = 0; i < n; i++) {
+            int papersWithAtLeastThisMany = n - i; 
+            if (citations[i] >= papersWithAtLeastThisMany) {
+                h = papersWithAtLeastThisMany;
+                break; 
             }
         }
-        return 0;
+        return h;
     }
 }
