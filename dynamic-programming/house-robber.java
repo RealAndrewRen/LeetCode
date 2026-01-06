@@ -1,13 +1,28 @@
 class Solution {
     public int rob(int[] nums) {
-        int max1 = 0;
-        int max2 = 0;
-        for (int i = 0; i < nums.length; i += 2){
-            max1 += nums[i];
+        int result = 0;
+        while (true){
+            int max = 0;
+            for (int i = 0; i < nums.length; i++){
+                if (Math.abs(nums[i]) > nums[max]){
+                    max = i;
+                }
+            }
+
+            if (nums[max] == -1){
+                return result;
+            }
+
+            if (max - 1 >= 0){
+                nums[max - 1] = -1;
+            }
+            if (max + 1 <= nums.length - 1){
+                nums[max + 1] = -1;
+            }
+            
+            result += nums[max];
+            nums[max] = -1;
+
         }
-        for (int j = 1; j < nums.length; j += 2){
-            max2 += nums[j];
-        }
-        return Math.max(max1, max2);
     }
 }
