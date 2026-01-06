@@ -7,8 +7,11 @@ class Solution {
             if ((finish - start) * Math.min(height[finish], height[start]) > max){
                 max = (finish - start) * Math.min(height[finish], height[start]);
             }
-            start++;
-            finish--;
+            if (height[start] < height[finish]) {
+                start++;
+            } else {
+                finish--;
+            }
         }
         return max;
     }
