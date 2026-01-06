@@ -6,7 +6,7 @@ class Solution {
         }
         int right = s.length() - 1;
         int left =  0;
-        while (left <= right){
+        while (left < right){
             if (s.charAt(left) != s.charAt(right)){
                 return false;
             }
