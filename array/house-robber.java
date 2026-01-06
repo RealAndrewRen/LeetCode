@@ -1,28 +1,14 @@
 class Solution {
     public int rob(int[] nums) {
-        int result = 0;
-        while (true){
-            int max = 0;
-            for (int i = 0; i < nums.length; i++){
-                if (Math.abs(nums[i]) > nums[max]){
-                    max = i;
-                }
-            }
+        int prev2 = 0; // dp[i-2]
+        int prev1 = 0; // dp[i-1]
 
-            if (nums[max] == -1){
-                return result;
-            }
-
-            if (max - 1 >= 0){
-                nums[max - 1] = -1;
-            }
-            if (max + 1 <= nums.length - 1){
-                nums[max + 1] = -1;
-            }
-            
-            result += nums[max];
-            nums[max] = -1;
-
+        for (int num : nums) {
+            int curr = Math.max(prev1, prev2 + num);
+            prev2 = prev1;
+            prev1 = curr;
         }
+
+        return prev1;
     }
 }
