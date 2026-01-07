@@ -11,7 +11,7 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head.next == null){
+        if (head == null){
             return false;
         }
         Set<ListNode> visited = new HashSet<>();
