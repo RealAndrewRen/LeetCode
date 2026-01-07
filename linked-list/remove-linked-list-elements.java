@@ -21,7 +21,9 @@ class Solution {
             if (curr.next.val == val){
                 curr.next = curr.next.next;
             }
-            curr = curr.next;
+            else{
+                curr = curr.next;
+            }
         }
         return head;
     }
