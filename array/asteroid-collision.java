@@ -10,6 +10,7 @@ class Solution {
             else{
                 while (!st.isEmpty() && Math.abs(asteroids[i]) > st.peek()){
                     st.pop();
+                    continue;
                 }
                 if (!st.isEmpty() && Math.abs(asteroids[i]) == st.peek()){
                     System.out.println(st.peek());
