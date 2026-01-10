@@ -1,21 +1,22 @@
+import java.util.*;
+
 class Solution {
     public int lastStoneWeight(int[] stones) {
-        Arrays.sort(stones);
-        int i = stones.length - 1;
-        if (stones.length == 1){
-            return stones[0];
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        
+        for (int s : stones) {
+            pq.add(s);
         }
-        while(stones[i - 1] != 0){
-            if (stones[i] > stones[i - 1]){
-                stones[i] = stones[i] - stones[i - 1];
-                stones[i - 1] = 0;
+        
+        while (pq.size() > 1) {
+            int y = pq.poll(); // largest
+            int x = pq.poll(); // second largest
+            
+            if (y != x) {
+                pq.add(y - x);
             }
-            else{
-                stones[i] = 0;
-                stones[i - 1] = 0;
-            }
-            Arrays.sort(stones);
         }
-        return stones[i];
+        
+        return pq.isEmpty() ? 0 : pq.poll();
     }
 }
