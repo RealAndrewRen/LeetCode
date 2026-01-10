@@ -17,25 +17,21 @@ class Twitter {
     }
     
     public List<Integer> getNewsFeed(int userId) {
-        ensureUser(userId);
+    ensureUser(userId);
 
-        List<Integer> result = new ArrayList<>();
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        int i = 0;
-        while (i < ids.size()){
-            if (following.get(userId).contains(posts.get(ids.get(i)))){
-                int tweetId = ids.get(i);
-                pq.add(tweetId);
-            }
-            i++;
+    List<Integer> result = new ArrayList<>();
+
+    for (int i = ids.size() - 1; i >= 0 && result.size() < 10; i--) {
+        int tweetId = ids.get(i);
+        int author = posts.get(tweetId);
+
+        if (following.get(userId).contains(author)) {
+            result.add(tweetId); // append in recency order
         }
-        int j = 0;
-        while (!pq.isEmpty() && j < 10){
-            result.add(pq.poll());
-            j++;
-        }
-        return result;
     }
+    return result;
+}
+
     
     public void follow(int followerId, int followeeId) {
         ensureUser(followerId);
