@@ -2,31 +2,32 @@ import java.util.*;
 
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        if (root == null) return result;
+        List<List<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        List<Integer> level;
+        TreeNode marker = new TreeNode(Integer.MIN_VALUE);
 
-        Queue<TreeNode> queue = new ArrayDeque<>();
-        queue.offer(root);
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();   // number of nodes in this level
-            List<Integer> level = new ArrayList<>();
-
-            for (int i = 0; i < size; i++) {
-                TreeNode curr = queue.poll();
-                level.add(curr.val);
-
-                if (curr.left != null) {
-                    queue.offer(curr.left);
-                }
-                if (curr.right != null) {
-                    queue.offer(curr.right);
-                }
-            }
-
-            result.add(level);
+        if (root == null){
+            return null;
         }
 
-        return result;
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.add(root);
+        while (!q.isEmpty()){
+            TreeNode curr = q.remove();
+            if (curr.val == Integer.MIN_VALUE){
+                result.add(level);
+                level = new ArrayList<Integer>();
+                if (!q.isEmpty){
+                    q.add(marker);
+                }
+            }
+            else{
+                level.add(curr.val);
+                q.add(root.left);
+                q.add(root.right);
+            }
+            result.add(level);
+        }
+    return result;
     }
 }
